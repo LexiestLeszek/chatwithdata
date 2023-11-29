@@ -13,8 +13,7 @@ DB_FAISS_PATH = 'vectorstore/db_faiss'
 def load_model():
     # Load the locally downloaded model here
     llm = CTransformers(
-#        model = './model/orca-mini-3b-gguf2-q4_0.gguf',
-        model = './model/marx-3b-v3_Q4_K_M.gguf',
+        model = './model/orca-mini-3b-gguf2-q4_0.gguf',
         model_type="llama",
         max_new_tokens = 512,
         temperature = 0.5
