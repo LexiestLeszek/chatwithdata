@@ -38,7 +38,7 @@ if uploaded_file :
     embeddings = HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2',
                                        model_kwargs={'device': 'cpu'})
 
-    db = FAISS.from_documents(data, embeddings)
+    db = FAISS.from_documents(data, embeddings, top_k=3)
     db.save_local(DB_FAISS_PATH)
     llm = load_model()
     chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=db.as_retriever())
