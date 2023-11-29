@@ -41,7 +41,7 @@ if uploaded_file :
     db = FAISS.from_documents(data, embeddings)
     db.save_local(DB_FAISS_PATH)
     llm = load_model()
-    chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=db.as_retriever())
+    chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=db.as_retriever(search_kwargs={'k': 2}))
 
     def conversational_chat(query):
         result = chain({"question": query, "chat_history": st.session_state['history']})
