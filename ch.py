@@ -13,7 +13,8 @@ DB_FAISS_PATH = 'vectorstore/db_faiss'
 def load_model():
     # Load the locally downloaded model here
     llm = CTransformers(
-        model = './model/orca-mini-3b-gguf2-q4_0.gguf',
+#        model = './model/orca-mini-3b-gguf2-q4_0.gguf',
+        model = './model/marx-3b-v3_Q4_K_M.gguf',
         model_type="llama",
         max_new_tokens = 512,
         temperature = 0.5
@@ -38,7 +39,7 @@ if uploaded_file :
     embeddings = HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2',
                                        model_kwargs={'device': 'cpu'})
 
-    db = FAISS.from_documents(data, embeddings, top_k=3)
+    db = FAISS.from_documents(data, embeddings)
     db.save_local(DB_FAISS_PATH)
     llm = load_model()
     chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=db.as_retriever())
